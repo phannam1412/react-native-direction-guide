@@ -1,5 +1,5 @@
 
-rt React, {Component} from 'react';
+import React, {Component} from 'react';
 import {Text, Dimensions, View} from 'react-native';
 import MapView from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
