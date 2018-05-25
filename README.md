@@ -2,7 +2,7 @@
 
 A react native maps direction guidance with address autocompletion input.
 
-![alt text](https://github.com/phannam1412/react-native-direction-guide/blob/master/map.gif "demo")
+![alt text](https://github.com/phannam1412/react-native-direction-guide/blob/master/map.gif "demo" =300px)
 
 ## Installation: 
 
