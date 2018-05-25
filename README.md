@@ -1,4 +1,4 @@
-# react-native-direction-guide
+# React Native Direction Guide
 
 A react native maps direction guidance with address autocompletion input.
 
