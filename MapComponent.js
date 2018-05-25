@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import {Text, Dimensions, View} from 'react-native';
 import MapView from 'react-native-maps';
@@ -6,7 +5,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const { width, height } = Dimensions.get('window');
-const GOOGLE_MAPS_APIKEY = 'YOUR GOOGLE MAPS API KEY HERE !!!';
+const GOOGLE_MAPS_APIKEY = 'AIzaSyByi1CK3yo1PYtBuqblKZb3IDjpiZCvJWw';
 
 class PlaceAutocompleteInput extends Component {
 
@@ -90,10 +89,17 @@ export default class MapComponent extends Component {
             ],
         };
 
-        this.state.from_lat = 37.3317876;
-        this.state.from_lng = -122.0054812;
+        this.state.from_lat = this.props.lat || 37.3317876 ;
+        this.state.from_lng = this.props.lng || -122.0054812;
 
         this.mapView = null;
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({
+            from_lat: props.lat || this.state.from_lat,
+            from_lng: props.lng || this.state.from_lng,
+        });
     }
 
     // @ref https://developers.google.com/places/web-service/details
@@ -112,12 +118,8 @@ export default class MapComponent extends Component {
         return (
 
             <View style={this.props.style}>
-                <PlaceAutocompleteInput label={"From"} onPress={(data, details) => this.onPress('from',data, details)}/>
-                <PlaceAutocompleteInput label={"To"} onPress={(data, details) => this.onPress('to',data, details)}/>
-                {
-                    this.state.distance && this.state.duration &&
-                       <Text>Distance: {Math.round(this.state.distance * 10) / 10}km, Time: {Math.round(this.state.duration)}min</Text>
-                }
+                <PlaceAutocompleteInput label={this.props.from || "From"} onPress={(data, details) => this.onPress('from',data, details)}/>
+                <PlaceAutocompleteInput label={this.props.to || "To"} onPress={(data, details) => this.onPress('to',data, details)}/>
                 <View style={{width: width, height: height}}>
                     <MapView
                         style={{height: height - 200, width: width}}
@@ -147,7 +149,8 @@ export default class MapComponent extends Component {
                                     console.log(`Started routing between "${params.origin}" and "${params.destination}"`);
                                 }}
                                 onReady={(result) => {
-                                    this.setState({distance: result.distance, duration: result.duration});
+                                    this.props.onDirection && this.props.onDirection(result.distance, result.duration);
+                                    !this.props.onDirection && alert(`Distance: ${Math.round(result.distance * 10) / 10}km, Time: ${Math.round(result.duration)}min`);
                                     this.mapView.fitToCoordinates(result.coordinates, {
                                         edgePadding: {
                                             right: Math.round(width / 20),
