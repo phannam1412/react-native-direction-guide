@@ -5,7 +5,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const { width, height } = Dimensions.get('window');
-const GOOGLE_MAPS_APIKEY = 'AIzaSyByi1CK3yo1PYtBuqblKZb3IDjpiZCvJWw';
+const GOOGLE_MAPS_APIKEY = 'your google maps api key here!!!';
 
 class PlaceAutocompleteInput extends Component {
 
